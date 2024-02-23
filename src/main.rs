@@ -1,7 +1,7 @@
 use std::{env, error::Error};
 
 use axum::Router;
-use finance_back_end::{self, connection::Database};
+use finance_back_end::{self, connection::Database, AppState};
 use tokio::net::TcpListener;
 
 #[tokio::main]
@@ -19,8 +19,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
     sqlx::migrate!("./migrations").run(&pool).await?;
 
     let router = Router::new()
-        .with_state(Database { pool })
-        .merge(finance_back_end::app_router());
+        .merge(finance_back_end::app_router())
+        .with_state(AppState {
+            database: Database { pool },
+        });
 
     axum::serve(listener, router.into_make_service()).await?;
 
