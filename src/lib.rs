@@ -2,6 +2,7 @@ pub mod connection;
 mod controller;
 mod errors;
 mod model;
+mod repository;
 
 use connection::Database;
 pub use controller::app_router;
