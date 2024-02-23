@@ -12,7 +12,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         TcpListener::bind(env::var("URL").expect("Could not find URL enviroment var")).await?;
 
     let pool = sqlx::mysql::MySqlPool::connect(
-        &env::var("DB_URI").expect("Could not find DB_URI enviroment var"),
+        &env::var("DATABASE_URL").expect("Could not find DB_URI enviroment var"),
     )
     .await?;
 
