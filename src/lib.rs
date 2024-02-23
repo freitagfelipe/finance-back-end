@@ -1,5 +1,6 @@
 pub mod connection;
 mod controller;
+mod errors;
 mod model;
 
 use connection::Database;
